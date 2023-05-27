@@ -1,4 +1,4 @@
-// How to store the information of what numbers is currently typed || or what operations are typed
+// use the class to store the information of what numbers is currently typed or what operations are typed
 
 class Calculator {
 	constructor(previousOperandTextElement, currentOperandTextElement) {
@@ -6,21 +6,24 @@ class Calculator {
 		this.currentOperandTextElement = currentOperandTextElement;
 		this.clear();
 	}
+	// All clear function
 	clear() {
 		this.currentOperand = "";
 		this.previousOperand = "";
 		this.operation = undefined;
 	}
+	// Delete function
 	delete() {
 		this.currentOperand = this.currentOperand.toString().slice(0, -1);
 	}
+	// Number button click function
 	appendNumber(number) {
-		// to check for more than one period keys
+		// check for more than one period keys
 		if (number === "." && this.currentOperand.includes(".")) return;
 		// to append numbers
-		this.currentOperand =
-			this.currentOperand.toString() + number.toString();
+		this.currentOperand = this.currentOperand.toString() + number.toString();
 	}
+	// Operation buttons click function
 	chooseOperation(operation) {
 		if (this.currentOperand === "") return;
 		if (this.previousOperand !== "") {
@@ -30,13 +33,15 @@ class Calculator {
 		this.previousOperand = this.currentOperand;
 		this.currentOperand = "";
 	}
-	// compute() takes the values inputted by the user and display a single value
+	// compute() takes the values inputted by the user to display a single value
+
 	compute() {
 		let computation;
 		const prev = parseFloat(this.previousOperand);
 		const current = parseFloat(this.currentOperand);
 
 		if (isNaN(prev) || isNaN(current)) return;
+
 		switch (this.operation) {
 			case "+":
 				computation = prev + current;
@@ -91,6 +96,7 @@ class Calculator {
 		}
 	}
 }
+// -------------------The Calculator Class ends here ------------------->
 
 const numberButtons = document.querySelectorAll("[data-number]");
 const operationButtons = document.querySelectorAll("[data-operation]");
@@ -104,6 +110,7 @@ const currentOperandTextElement = document.querySelector(
 	"[data-current-operand]"
 );
 
+// Instantiating the class Calculator - creating an instance of Calculator
 const calculator = new Calculator(
 	previousOperandTextElement,
 	currentOperandTextElement
